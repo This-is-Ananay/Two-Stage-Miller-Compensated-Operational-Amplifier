@@ -3,32 +3,29 @@ All the derivations can be found in textbook by P. Allen and D. Holberg,"CMOS An
 
 
 ## DESIGN SPECIFICATION OF OPAMP
-Gain= 60db
-Slew rate = 20 V/uS
-GBW (Gain Bandwidth) = 30 MHz
-ICMR(+)= 1.6 V
-ICMR(-)= 800 mV
-Vdc = 1.8 V
-Cl (Load Capacitance) = 2pF
+Gain= 60db<br>
+Slew rate = 20 V/uS<br>
+GBW (Gain Bandwidth) = 30 MHz<br>
+Phase Margin = >=60 degree<br>
+ICMR(+)= 1.6 V<br>
+ICMR(-)= 800 mV<br>
+Vdd = 1.8 V<br>
+Cl (Load Capacitance) = 2pF<br>
 
 ## CIRCUIT DIAGRAM
 The circuit of opamp which includes all the differntial pair and current mirror made using the nmos2v and pmos2v from the 90nm (gpdk90) library.
 
-<p align="center">
-  <img src="Images/1_Schematics.jpeg" width="48%">
-  <img src="Images/18.jpeg" width="48%">
-</p>
+![M1 and M2 design calculations](Images/1_Schematics.jpeg)
+![M1 and M2 design calculations](Images/18.jpeg)
 
 ## DESIGN 
 ### Design of input transistor M1 and M2 
-The design process is 90nm so L>= 2Lmin , thus L=500nm is used for the design.
+For a safer design initial Length = 500nm ( L>= 2*Lmin)
 
 ![M1 and M2 design calculations](Images/13.jpeg)
 
 ### Finding Minimum and maximum Threshold value
-After designing M1 and M2 the circuit arrangement is used to find the threshold limits.
-
-Now for for M3 and M4 the threshold can be obtained from the circuit. Note until now they are not designed so assume a suitable W/L ratio and take a margin of safety in threshold value obtained.
+After designing M1 and M2 the circuit arrangement is used to find the threshold limits for all of these transistors. Note until now M3 and M4 are not designed so assume a suitable W/L ratio and take a margin of safety in threshold value obtained.
 
 ![Threshold calculations](Images/12_test.jpeg)
 
@@ -47,7 +44,7 @@ Now for for M3 and M4 the threshold can be obtained from the circuit. Note until
 ### Deciding values of compensation capacitor (Cc) and bias current (I)
 We have target Slew rate and given Load capacitor CL in the specification. We also have the target of Phase margin > 60 degree. The condition for 60 degree phase margin is Cc>=0.22xCL Hence, for our project Cc should be more than or equal to 2.2pF. So initially choosing Cc = 800fF. Now, Slew Rate = I5 / Cc so I5 (I) = SR x Cc = 20μA.
 
-The DC Analysis is as follow:
+The DC Analysis for boundary values 1.6V and 0.8V is:
 
 <p align="center">
   <img src="Images/2_DC_1.6V.jpeg" width="48%">
@@ -68,11 +65,16 @@ The final Gain and Phase margin plots for different common mode voltages are:
   <img src="Images/4_AC_0.8V.jpeg" width="48%">
 </p>
 
+The GBW for 1.6V is : 22.8468 MHz
+The GBW for 0.8V is : 21.3223 MHz
+
 Furthermore we can also calculate further design parameters.
 
 ## COMMON MODE REJECTION RATIO (CMRR)
 
-![M7 design calculations](Images/10_CMRR.jpeg.jpeg)
+![M7 design calculations](Images/10_CMRR.jpeg)
+
+The Blue curve here represents, CMRR = Adm - Acm (71.4999 -(-5.7042)) = 77.2042dB
 
 ## SLEW RATE 
 
@@ -83,9 +85,13 @@ Furthermore we can also calculate further design parameters.
   <img src="Images/9_SLEWRESULT.jpeg" width="48%">
 </p>
 
+The Slew Rate obtained is 21.60 V/us which is close to the design target.
+
 ## POWER DISSIPATION
 
 ![M7 design calculations](Images/11_POWER.jpeg)
+
+Net power dissipated is 317uW
 
 
 

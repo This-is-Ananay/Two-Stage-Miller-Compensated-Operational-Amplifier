@@ -1,26 +1,27 @@
 # Two-Stage-Miller-Compensated-Operational-Amplifier
-All the derivations can be found in textbook by P. Allen and D. Holberg,"CMOS Analog Circuit Design", The Oxford Series in Electrical and Computer Engineering.
-
+Refer the textbook by P. Allen and D. Holberg,"CMOS Analog Circuit Design",The Oxford Series in Electrical and Computer Engineering, for design formulae derivation and other concepts.
 
 ## DESIGN SPECIFICATION OF OPAMP
 Gain= 60db<br>
-Slew rate = 20 V/uS<br>
+Slew rate = 20 V/us<br>
 GBW (Gain Bandwidth) = 30 MHz<br>
 Phase Margin = >=60 degree<br>
 ICMR(+)= 1.6 V<br>
 ICMR(-)= 800 mV<br>
 Vdd = 1.8 V<br>
 Cl (Load Capacitance) = 2pF<br>
+µpCox = 60<br>
+µnCox = 300<br>
 
 ## CIRCUIT DIAGRAM
-The circuit of opamp which includes all the differntial pair and current mirror made using the nmos2v and pmos2v from the 90nm (gpdk90) library.
+The circuit of opamp which includes all the differential pair and current mirror made using the nmos2v and pmos2v from the 90nm (gpdk90) library.
 
 ![M1 and M2 design calculations](Images/1_Schematics.jpeg)
 ![M1 and M2 design calculations](Images/18.jpeg)
 
 ## DESIGN 
 ### Design of input transistor M1 and M2 
-For a safer design initial Length = 500nm ( L>= 2*Lmin)
+For a safer design initial Length = 500nm ( L>= 2*Lmin).
 
 ![M1 and M2 design calculations](Images/13.jpeg)
 
@@ -42,7 +43,7 @@ After designing M1 and M2 the circuit arrangement is used to find the threshold 
 ![M7 design calculations](Images/16.jpeg)
 
 ### Deciding values of compensation capacitor (Cc) and bias current (I)
-We have target Slew rate and given Load capacitor CL in the specification. We also have the target of Phase margin > 60 degree. The condition for 60 degree phase margin is Cc>=0.22xCL Hence, for our project Cc should be more than or equal to 2.2pF. So initially choosing Cc = 800fF. Now, Slew Rate = I5 / Cc so I5 (I) = SR x Cc = 20μA.
+We have target Slew rate and given Load capacitor CL in the specification. We also have the target of Phase margin > 60 degree. The condition for 60 degree phase margin is Cc>=0.22xCL Hence, for our project Cc should be more than or equal to 2.2pF. So initially choosing Cc = 800fF. Now, Slew Rate = I5 / Cc so I5 (Idc) = SR x Cc = 20μA. (taking factor of safety)
 
 The DC Analysis for boundary values 1.6V and 0.8V is:
 
@@ -54,9 +55,9 @@ The DC Analysis for boundary values 1.6V and 0.8V is:
 ## Re-Design
 After the initial design and DC analysis the obtained DC operating points are used to calculate the gain.
 
-![M7 design calculations](Images/17.jpeg)
+![Gain Calculation](Images/17.jpeg)
 
-In both cases the obtained gain is lesser then the desired target. So will increase the "Length" keeping same W/L ratios to obtain a higher gain and simultaneously will adjust Cc value to get phase margin closer to 60 degree. The length is increased from 500um to 1000um and Cc = 850fF to meet the specifications. For precise tunning we can further change length and Cc accordingly but this is a rough estimation with no length related constraints. All this is monitored and measured using the AC analysis by plotting gain and phase margin plot.
+In both cases the obtained gain is less than the desired target. So will increase the "Length" keeping same W/L ratios to obtain a higher gain and simultaneously will adjust Cc value to get phase margin closer to 60 degree. The length is increased from 500nm to 1000nm and Cc = 850fF to meet the specifications. For precise tuning we can further change length and Cc accordingly but this is a rough estimation with no length related constraints. All this is monitored and measured using the AC analysis by plotting gain and phase margin plot.
 
 The final Gain and Phase margin plots for different common mode voltages are:
 
@@ -65,33 +66,34 @@ The final Gain and Phase margin plots for different common mode voltages are:
   <img src="Images/4_AC_0.8V.jpeg" width="48%">
 </p>
 
-The GBW for 1.6V is : 22.8468 MHz
-The GBW for 0.8V is : 21.3223 MHz
+The GBW for 1.6V is : 22.8468 MHz<br>    
+The GBW for 0.8V is : 21.3223 MHz<br>
 
 Furthermore we can also calculate further design parameters.
 
 ## COMMON MODE REJECTION RATIO (CMRR)
 
-![M7 design calculations](Images/10_CMRR.jpeg)
+![ CMRR ](Images/10_CMRR.jpeg)
 
 The Blue curve here represents, CMRR = Adm - Acm (71.4999 -(-5.7042)) = 77.2042dB
 
 ## SLEW RATE 
 
-![M7 design calculations](Images/7_OPAMTESTBENCH.jpeg)
+![ SLEW RATE CIRCUIT ](Images/7_OPAMTESTBENCH.jpeg)
 
 <p align="center">
   <img src="Images/8_SLEWRATE.jpeg" width="48%">
   <img src="Images/9_SLEWRESULT.jpeg" width="48%">
 </p>
 
-The Slew Rate obtained is 21.60 V/us which is close to the design target.
+The Slew Rate obtained is 21.60 V/us which meets the design target.
 
 ## POWER DISSIPATION
 
-![M7 design calculations](Images/11_POWER.jpeg)
+![ POWER DISSIPATION ](Images/11_POWER.jpeg)
 
 Net power dissipated is 317uW
+
 
 
 

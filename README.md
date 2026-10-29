@@ -66,8 +66,8 @@ The final Gain and Phase margin plots for different common mode voltages are:
   <img src="Images/4_AC_0.8V.jpeg" width="48%">
 </p>
 
-The GBW for 1.6V is : 22.8468 MHz<br>    
-The GBW for 0.8V is : 21.3223 MHz<br>
+The GBW for 1.6V is : 22.8468 MHz
+The GBW for 0.8V is : 21.3223 MHz
 
 Furthermore we can also calculate further design parameters.
 
